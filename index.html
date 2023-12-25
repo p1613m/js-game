@@ -11,6 +11,29 @@
 </head>
 <body>
 
+<div class="game-wrapper">
+	<div class="game-screen game-screen-start active">
+		<div class="game-welcome">
+			<h2>Welcome</h2>
+			<p>Enter your name</p>
+			<input type="text" placeholder="Nickname">
+			<button disabled>Start</button>
+		</div>
+	</div>
+	<div class="game-screen game-screen-playground">
+		<div class="game-controls">
+			<div>Nickname</div>
+			<div>00:00</div>
+			<div>Score: 0</div>
+			<div>
+				<button>Pause</button>
+			</div>
+		</div>
+		<div class="game-elements"></div>
+	</div>
+	<div class="game-screen game-screen-leaderboard"></div>
+</div>
+
 <script src="assets/js/game.js"></script>
 </body>
 </html>
