@@ -68,3 +68,6 @@ body {
 .drawable-player {
 	background-image: url(./../images/player.png);
 }
+.drawable-gift {
+	background-image: url(./../images/gift.png);
+}

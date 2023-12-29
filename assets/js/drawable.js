@@ -35,4 +35,12 @@ class Drawable {
     checkCoords() {
 
     }
+
+    remove() {
+        const index = this.game.elements.indexOf(this)
+
+        this.game.elements.splice(index, 1)
+
+        this.$element.remove()
+    }
 }

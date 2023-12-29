@@ -1,3 +1,9 @@
+const rand = (min, max) => {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1) + min); // The maximum is inclusive and the minimum is inclusive
+}
+
 class Game {
     constructor(fps) {
         this.fps = fps
@@ -49,14 +55,10 @@ class Game {
         })
 
         document.addEventListener('keydown', event => {
-            if (this.isStarted) {
-                this.keys.add(event.key)
-            }
+            this.keys.add(event.key)
         })
         document.addEventListener('keyup', event => {
-            if (this.isStarted) {
-                this.keys.delete(event.key)
-            }
+            this.keys.delete(event.key)
         })
     }
 
@@ -68,7 +70,11 @@ class Game {
         this.elements.push(this.player)
 
         setInterval(() => {
-            this.elements.forEach(element => element.updateCoords())
+            requestAnimationFrame(() => {
+                if (this.isStarted) {
+                    this.elements.forEach(element => element.updateCoords())
+                }
+            })
         }, 1000 / this.fps)
 
         setInterval(() => {
@@ -81,6 +87,8 @@ class Game {
             this.$controls.timer.innerHTML = `${('0' + minutes).slice(-2)}:${('0' + seconds).slice(-2)}`
         }, 1000)
 
+        this.generateGift()
+
         this.changeScreen('playground')
     }
 
@@ -90,6 +98,14 @@ class Game {
         }
 
         this.$screens[screenName].classList.add('active')
+    }
+
+    generateGift() {
+        if (this.isStarted) {
+            this.elements.push(new Gift(this))
+        }
+
+        setTimeout(() => this.generateGift(),  rand(1, 4) * 1000)
     }
 }
 
