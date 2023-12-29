@@ -16,6 +16,7 @@ body {
 	width: 1400px;
 	height: 800px;
 	position: relative;
+	overflow: hidden;
 }
 
 .game-screen {
@@ -67,6 +68,13 @@ body {
 }
 .drawable-player {
 	background-image: url(./../images/player.png);
+	transition: transform .3s;
+}
+.drawable-player.up {
+	transform: rotate(-10deg);
+}
+.drawable-player.down {
+	transform: rotate(10deg);
 }
 .drawable-gift {
 	background-image: url(./../images/gift.png);

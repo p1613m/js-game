@@ -24,14 +24,19 @@
 		<div class="game-controls">
 			<div id="nickname">Nickname</div>
 			<div id="timer">00:00</div>
-			<div>Score: 0</div>
+			<div>Score: <span id="score">0</span></div>
 			<div>
 				<button id="pause">Pause</button>
 			</div>
 		</div>
 		<div class="game-elements"></div>
 	</div>
-	<div class="game-screen game-screen-leaderboard"></div>
+	<div class="game-screen game-screen-leaderboard">
+		<div class="game-leaderboard-wrapper">
+			<h2>Игра завершена! Вас счет <span id="result-score"></span>.
+				Время игры: <span id="result-time"></span></h2>
+		</div>
+	</div>
 </div>
 
 <script src="assets/js/drawable.js"></script>

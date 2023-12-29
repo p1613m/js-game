@@ -36,6 +36,15 @@ class Drawable {
 
     }
 
+    getFullCoords() {
+        return {
+            x1: this.x,
+            y1: this.y,
+            x2: this.x + this.width,
+            y2: this.y + this.height,
+        }
+    }
+
     remove() {
         const index = this.game.elements.indexOf(this)
 

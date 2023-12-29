@@ -21,6 +21,11 @@ class Game {
             nickname: document.querySelector('#nickname'),
             timer: document.querySelector('#timer'),
             pause: document.querySelector('#pause'),
+            score: document.querySelector('#score'),
+        }
+        this.$result = {
+            score: document.querySelector('#result-score'),
+            time: document.querySelector('#result-time'),
         }
         this.$elements = document.querySelector('.game-elements')
         this.$wrapper = document.querySelector('.game-wrapper')
@@ -31,6 +36,7 @@ class Game {
         this.isStarted = false
         this.nickname = null
         this.seconds = 0
+        this.score = 0
         this.keys = new Set()
         this.elements = []
 
@@ -115,6 +121,21 @@ class Game {
         }
 
         setTimeout(() => this.generateEnemy(),  rand(1, 4) * 1000)
+    }
+
+    upScore() {
+        this.score++
+
+        this.$controls.score.innerText = this.score
+    }
+
+    finish() {
+        this.isStarted = false
+
+        this.$result.score.innerText = this.score
+        this.$result.time.innerText = this.$controls.timer.innerText
+
+        this.changeScreen('leaderboard')
     }
 }
 
