@@ -88,6 +88,7 @@ class Game {
         }, 1000)
 
         this.generateGift()
+        this.generateEnemy()
 
         this.changeScreen('playground')
     }
@@ -106,6 +107,14 @@ class Game {
         }
 
         setTimeout(() => this.generateGift(),  rand(1, 4) * 1000)
+    }
+
+    generateEnemy() {
+        if (this.isStarted) {
+            this.elements.push(new Enemy(this))
+        }
+
+        setTimeout(() => this.generateEnemy(),  rand(1, 4) * 1000)
     }
 }
 

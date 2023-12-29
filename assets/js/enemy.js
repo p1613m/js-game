@@ -1,9 +1,9 @@
-class Gift extends Drawable {
+class Enemy extends Drawable {
     constructor(game) {
         super(game);
 
-        this.width = 100
-        this.height = 100
+        this.width = 200
+        this.height = 107
         this.x = this.game.width
         this.y = rand(0, this.game.height - this.height)
         this.speed = rand(5, 12)
