@@ -1,5 +1,7 @@
 class Game {
-    constructor() {
+    constructor(fps) {
+        this.fps = fps
+
         this.$screens = {
             start: document.querySelector('.game-screen-start'),
             playground: document.querySelector('.game-screen-playground'),
@@ -14,10 +16,17 @@ class Game {
             timer: document.querySelector('#timer'),
             pause: document.querySelector('#pause'),
         }
+        this.$elements = document.querySelector('.game-elements')
+        this.$wrapper = document.querySelector('.game-wrapper')
 
+        this.player = null
+        this.width = this.$wrapper.offsetWidth
+        this.height = this.$wrapper.offsetHeight
         this.isStarted = false
         this.nickname = null
         this.seconds = 0
+        this.keys = new Set()
+        this.elements = []
 
         this.binds()
     }
@@ -38,11 +47,29 @@ class Game {
 
             this.$controls.pause.innerText = this.isStarted ? 'Pause' : 'Continue'
         })
+
+        document.addEventListener('keydown', event => {
+            if (this.isStarted) {
+                this.keys.add(event.key)
+            }
+        })
+        document.addEventListener('keyup', event => {
+            if (this.isStarted) {
+                this.keys.delete(event.key)
+            }
+        })
     }
 
     start() {
         this.isStarted = true
         this.$controls.nickname.innerText = this.nickname
+
+        this.player = new Player(this)
+        this.elements.push(this.player)
+
+        setInterval(() => {
+            this.elements.forEach(element => element.updateCoords())
+        }, 1000 / this.fps)
 
         setInterval(() => {
             if (!this.isStarted) return;
@@ -69,5 +96,5 @@ class Game {
 let game = null
 
 document.addEventListener('DOMContentLoaded', () => {
-    game = new Game()
+    game = new Game(60)
 })
