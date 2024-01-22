@@ -7,6 +7,7 @@ class Gift extends Drawable {
         this.x = this.game.width
         this.y = rand(0, this.game.height - this.height)
         this.speed = rand(5, 12)
+        this.hp = 50
     }
 
     updateCoords() {

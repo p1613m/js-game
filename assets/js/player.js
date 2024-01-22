@@ -7,32 +7,48 @@ class Player extends Drawable {
         this.x = 0
         this.y = Math.round(this.game.height / 2 - this.height / 2)
         this.speed = 10
+        this.isShoted = false
     }
 
     updateCoords() {
-        if (game.keys.has('s')) {
+        if (this.game.keys.has('s')) {
             this.y += this.speed
             this.$element?.classList.add('down')
         } else {
             this.$element?.classList.remove('down')
         }
 
-        if (game.keys.has('w')) {
+        if (this.game.keys.has('w')) {
             this.y -= this.speed
             this.$element?.classList.add('up')
         } else {
             this.$element?.classList.remove('up')
         }
 
-        if (game.keys.has('d')) {
+        if (this.game.keys.has('d')) {
             this.x += this.speed
         }
 
-        if (game.keys.has('a')) {
+        if (this.game.keys.has('a')) {
             this.x -= this.speed
         }
 
+        if (this.game.keys.has(' ') && !this.isShoted) {
+            this.isShoted = true
+            this.game.elements.push(new PlayerShot(this.game))
+        } else if (!this.game.keys.has(' ')) {
+            this.isShoted = false
+        }
+
         super.updateCoords();
+    }
+
+    hit(shot) {
+        super.hit(shot)
+
+        if (this.hp <= 0) {
+            this.game.finish()
+        }
     }
 
     checkCoords() {
@@ -62,13 +78,5 @@ class Player extends Drawable {
                 }
             }
         })
-    }
-
-    isCollisionWith(element) {
-        const a = this.getFullCoords()
-        const b = element.getFullCoords()
-
-        return a.x1 < b.x2 && b.x1 < a.x2 &&
-               a.y1 < b.y2 && b.y1 < a.y2
     }
 }

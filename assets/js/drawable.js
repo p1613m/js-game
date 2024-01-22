@@ -7,6 +7,7 @@ class Drawable {
         this.width = null
         this.height = null
         this.speed = null
+        this.hp = 100
     }
 
     draw() {
@@ -32,6 +33,20 @@ class Drawable {
         this.$element.style.top = `${this.y}px`
     }
 
+    hit(shot) {
+        this.hp -= shot.damage
+
+        this.$element.classList.add('shot')
+
+        setTimeout(() => {
+            this.$element.classList.remove('shot')
+        }, 100)
+
+        if (this.hp <= 0) {
+            this.remove()
+        }
+    }
+
     checkCoords() {
 
     }
@@ -43,6 +58,14 @@ class Drawable {
             x2: this.x + this.width,
             y2: this.y + this.height,
         }
+    }
+
+    isCollisionWith(element) {
+        const a = this.getFullCoords()
+        const b = element.getFullCoords()
+
+        return a.x1 < b.x2 && b.x1 < a.x2 &&
+            a.y1 < b.y2 && b.y1 < a.y2
     }
 
     remove() {

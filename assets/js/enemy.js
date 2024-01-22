@@ -7,6 +7,8 @@ class Enemy extends Drawable {
         this.x = this.game.width
         this.y = rand(0, this.game.height - this.height)
         this.speed = rand(5, 12)
+
+        this.shot()
     }
 
     updateCoords() {
@@ -21,5 +23,11 @@ class Enemy extends Drawable {
         if (this.x + this.width < 0) {
             this.remove()
         }
+    }
+
+    shot() {
+        this.game.elements.push(new EnemyShot(this.game, this))
+
+        // setTimeout(() => this.shot(), rand(700, 900))
     }
 }
